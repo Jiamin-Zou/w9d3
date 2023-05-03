@@ -2,6 +2,7 @@ class FollowsController < ApplicationController
   before_action :require_logged_in!
 
   def create
+    # debugger
     # simulate latency
     sleep(1)
 
@@ -9,6 +10,7 @@ class FollowsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to request.referrer }
+      format.json { render json: current_user.slice(:id, :username) }
     end
   end
 
@@ -25,6 +27,7 @@ class FollowsController < ApplicationController
       # `DELETE`.
       # See https://api.rubyonrails.org/classes/ActionController/Redirecting.html#method-i-redirect_to
       format.html { redirect_to request.referrer, status: :see_other }
+      format.json { render json: current_user.slice(:id) }
     end
   end
 end

@@ -11,10 +11,10 @@ export default class FollowToggle {
   async handleClick(event) {
     // Your code here
     event.preventDefault();
-    console.log(this.followState);
+    // console.log(this.followState);
     // debugger
     this.followState === "followed" ? this.unfollow() : this.follow();
-    console.log(this.followState);
+    // console.log(this.followState);
     // debugger
   }
 

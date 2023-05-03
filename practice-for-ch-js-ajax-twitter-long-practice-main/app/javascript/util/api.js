@@ -3,20 +3,39 @@ const csrfToken = document.querySelector("meta[name=csrf-token]").content;
 async function customFetch(url, options = {}) {
   options.headers = {
     // Your code here
-    ...options.headers
-  };
+    ...options.headers,
+    'x-csrf-token': csrfToken,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
 
-  return await fetch(url, options);
+  };
+  // debugger
+  const response = await fetch(url, options);
+  // fetch(url, options)
+  //   .then(response => {
+  //     if (response.ok) {
+  //       return response.json()
+  //     } else {
+  //       throw response
+  //     }
+  //   }
+  if(response.ok) {
+    return response.json();
+  } else {
+    throw response;
+  }
 }
 
-function followUser(id) {
-  customFetch(`/users/${id}/follow`, {
-    method: "POST"
+export function followUser(id) {
+  // debugger
+  return customFetch(`/users/${id}/follow`, {
+    method: 'POST'
   })
 }
-function unfollowUser(id) {
-  customFetch(`/users/${id}/follow`, {
-    method: "DELETE"
+export function unfollowUser(id) {
+  // debugger
+  return customFetch(`/users/${id}/follow`, {
+    method: 'DELETE'
   })
 }
 
